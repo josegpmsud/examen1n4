@@ -7,59 +7,43 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $usuario = new Usuario();
+        return $usuario->all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $usuario = new Usuario();
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->correo_electronico = $request->correo_electronico;
+        $usuario->fecha_registro = $request->fecha_registro;
+        $usuario->save();
+        return "Registro Guardado Correctamente";
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(usuario $usuario)
+    public function show(string $id)
     {
-        //
+        return Usuario::where('id',$id)->get();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(usuario $usuario)
+    public function update(Request $request, string $id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->nombre = $request->nombre;
+        $usuario->apellido = $request->apellido;
+        $usuario->correo_electronico = $request->correo_electronico;
+        $usuario->fecha_registro = $request->fecha_registro;
+        $usuario->save();
+        return $usuario;
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, usuario $usuario)
+    public function destroy(string $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(usuario $usuario)
-    {
-        //
+        $usuario = Usuario::find($id);
+        $usuario->delete();
+        return "Eliminado correctamente";
     }
 }
