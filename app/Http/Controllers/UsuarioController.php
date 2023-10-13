@@ -37,7 +37,7 @@ class UsuarioController extends Controller
         $usuario->correo_electronico = $request->correo_electronico;
         $usuario->fecha_registro = $request->fecha_registro;
         $usuario->save();
-        return $usuario;
+        return "Registro Actualizado Correctamente";
     }
 
     public function destroy(string $id)
